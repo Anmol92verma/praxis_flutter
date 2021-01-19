@@ -1,4 +1,3 @@
 abstract class BaseUseCase<IN, OUT> {
-  OUT perfom(IN params);
-  OUT perform();
+  OUT perform(IN params);
 }
