@@ -1,0 +1,30 @@
+{
+  "type": "success",
+  "value": [
+    {
+      "id": 1,
+      "joke": "Joke1",
+      "categories": []
+    },
+    {
+      "id": 2,
+      "joke": "Joke2",
+      "categories": []
+    },
+    {
+      "id": 3,
+      "joke": "Joke3",
+      "categories": []
+    },
+    {
+      "id": 4,
+      "joke": "Joke4",
+      "categories": []
+    },
+    {
+      "id": 5,
+      "joke": "Joke5",
+      "categories": []
+    }
+  ]
+}
