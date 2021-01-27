@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:praxis_flutter/app/components/praxis_button.dart';
 import 'package:praxis_flutter/app/pages/home/home_controller.dart';
 import 'package:praxis_flutter/locator.dart';
 
@@ -49,27 +50,6 @@ class _HomePageView extends ViewState<HomePage, HomeController> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class PraxisButton extends StatelessWidget {
-  final String text;
-  final Function onPressed;
-
-  const PraxisButton({
-    Key key,
-    @required this.text,
-    @required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      child: Text(text),
-      textColor: Colors.white,
-      color: Theme.of(context).buttonColor,
-      onPressed: onPressed,
     );
   }
 }

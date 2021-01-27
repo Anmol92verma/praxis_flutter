@@ -19,6 +19,7 @@ class HomePresenter extends Presenter {
   }
 }
 
+// Note: this can be optimized once dart has support for inner classes
 class _GetJokesObserver implements Observer<List<Joke>> {
   final HomePresenter _presenter;
 
