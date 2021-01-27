@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/app/components/praxis_button.dart';
-import 'package:praxis_flutter/app/pages/home/bloc/jokes_bloc.dart';
+import 'package:praxis_flutter/app/pages/home/bloc/jokes_cubit.dart';
 import 'package:praxis_flutter/app/pages/jokes/jokes_view.dart';
 import 'package:praxis_flutter/locator.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<JokesBloc>(
-      create: (context) => locator<JokesBloc>(),
+    return BlocProvider<JokesCubit>(
+      create: (context) => locator<JokesCubit>(),
       child: _HomePageLayout(),
     );
   }
@@ -27,7 +27,7 @@ class _HomePageLayout extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            BlocConsumer<JokesBloc, JokesState>(
+            BlocConsumer<JokesCubit, JokesState>(
               listener: (context, state) {
                 if (state is JokesLoaded) {
                   Navigator.push(
@@ -59,7 +59,7 @@ class _HomePageLayout extends StatelessWidget {
             SizedBox(height: 50),
             PraxisButton(
               text: "Show 5 Random Jokes",
-              onPressed: () => context.read<JokesBloc>().add(GetJokes()),
+              onPressed: () => context.read<JokesCubit>().getJokes(),
             )
           ],
         ),
