@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:praxis_flutter/domain/entities/joke.dart';
 import 'package:praxis_flutter/domain/repositories/joke_repository.dart';
+import 'package:praxis_flutter/domain/usecases/base_use_case.dart';
+import 'package:praxis_flutter/domain/utils/safe_result.dart';
 
 class GetFiveRandomJokesUseCase extends UseCase<List<Joke>, void> {
   final JokeRepository _jokeRepository;
@@ -10,21 +11,13 @@ class GetFiveRandomJokesUseCase extends UseCase<List<Joke>, void> {
   GetFiveRandomJokesUseCase(this._jokeRepository);
 
   @override
-  Future<Stream<List<Joke>>> buildUseCaseStream(void params) async {
-    final StreamController controller = StreamController<List<Joke>>();
+  Future<SafeResult<List<Joke>>> call(void params) async {
     try {
-      // assuming you pass credentials here
       final result = await _jokeRepository.getFiveRandomJokes();
-      controller.add(result);
-      logger.finest('GetFiveRandomJokesUseCase successful.');
-      // triggers onComplete
-      controller.close();
+      return Success(result);
     } catch (e) {
       print(e);
-      logger.severe('GetFiveRandomJokesUseCase unsuccessful.');
-      // Trigger .onError
-      controller.addError(e);
+      return Failure(e);
     }
-    return controller.stream;
   }
 }

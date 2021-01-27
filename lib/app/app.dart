@@ -3,12 +3,6 @@ import 'package:flutter/material.dart';
 import 'pages/home/home_view.dart';
 
 class MyApp extends StatelessWidget {
-  // final Router _router;
-
-  // MyApp() : _router = Router() {
-  //   initLogger();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

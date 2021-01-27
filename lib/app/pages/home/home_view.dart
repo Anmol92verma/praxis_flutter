@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/app/components/praxis_button.dart';
-import 'package:praxis_flutter/app/pages/home/home_controller.dart';
+import 'package:praxis_flutter/app/pages/home/bloc/jokes_bloc.dart';
+import 'package:praxis_flutter/app/pages/jokes/jokes_view.dart';
 import 'package:praxis_flutter/locator.dart';
 
-class HomePage extends View {
-  final controller = locator<HomeController>();
-
+class HomePage extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() => _HomePageView(controller);
+  Widget build(BuildContext context) {
+    return BlocProvider<JokesBloc>(
+      create: (context) => locator<JokesBloc>(),
+      child: _HomePageLayout(),
+    );
+  }
 }
 
-class _HomePageView extends ViewState<HomePage, HomeController> {
-  _HomePageView(HomeController controller) : super(controller);
-
+class _HomePageLayout extends StatelessWidget {
   @override
-  Widget get view {
+  Widget build(BuildContext context) {
     return Scaffold(
-      key: globalKey,
       appBar: AppBar(
         title: Text("Praxis"),
       ),
@@ -26,12 +27,28 @@ class _HomePageView extends ViewState<HomePage, HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ControlledWidgetBuilder<HomeController>(
-              builder: (context, controller) {
-                return Visibility(
-                  child: LinearProgressIndicator(),
-                  visible: controller.isLoading,
-                );
+            BlocConsumer<JokesBloc, JokesState>(
+              listener: (context, state) {
+                if (state is JokesLoaded) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JokesPage(state.jokes),
+                    ),
+                  );
+                } else if (state is JokesError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                    ),
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (state is JokesLoading)
+                  return LinearProgressIndicator();
+                else
+                  return Container();
               },
             ),
             SizedBox(height: 30),
@@ -40,13 +57,10 @@ class _HomePageView extends ViewState<HomePage, HomeController> {
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 50),
-            ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-              return PraxisButton(
-                text: "Show 5 Random Jokes",
-                onPressed: controller.getJokes,
-              );
-            })
+            PraxisButton(
+              text: "Show 5 Random Jokes",
+              onPressed: () => context.read<JokesBloc>().add(GetJokes()),
+            )
           ],
         ),
       ),
