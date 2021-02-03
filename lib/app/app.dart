@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'pages/home/home_view.dart';
+import 'package:praxis_flutter/locator.dart';
+import 'package:praxis_flutter/routing/nav.dart';
+import 'package:praxis_flutter/routing/route_names.dart';
+import 'package:praxis_flutter/routing/router.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,7 +14,9 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xffFF4081),
         buttonColor: Color(0xff009688),
       ),
-      home: HomePage(),
+      onGenerateRoute: generateRoute,
+      navigatorKey: locator<Nav>().navigatorKey,
+      initialRoute: homeRoute,
     );
   }
 }

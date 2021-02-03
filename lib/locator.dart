@@ -4,11 +4,16 @@ import 'package:domain_layer/repositories/joke_repository.dart';
 import 'package:domain_layer/usecases/get_five_random_jokes_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:praxis_flutter/app/pages/home/bloc/jokes_cubit.dart';
+
+import 'app/pages/home/bloc/jokes_cubit.dart';
+import 'routing/nav.dart';
 
 final locator = GetIt.instance;
 
 Future<void> init() async {
+  // Navigator
+  locator.registerLazySingleton(() => Nav());
+
   // Bloc
   locator.registerFactory(() => JokesCubit(locator()));
 

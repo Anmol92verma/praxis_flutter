@@ -2,12 +2,10 @@ import 'package:domain_layer/entities/joke.dart';
 import 'package:flutter/material.dart';
 
 class JokesPage extends StatelessWidget {
-  final List<Joke> jokes;
-
-  JokesPage(this.jokes);
-
   @override
   Widget build(BuildContext context) {
+    final List<Joke> jokes = ModalRoute.of(context).settings.arguments ??
+        [Joke(0, "Something is missing here.")];
     return Scaffold(
       appBar: AppBar(
         title: Text("Praxis"),

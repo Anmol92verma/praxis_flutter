@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:praxis_flutter/app/components/praxis_button.dart';
 import 'package:praxis_flutter/app/pages/home/bloc/jokes_cubit.dart';
-import 'package:praxis_flutter/app/pages/jokes/jokes_view.dart';
 import 'package:praxis_flutter/locator.dart';
+import 'package:praxis_flutter/routing/nav.dart';
+import 'package:praxis_flutter/routing/route_names.dart';
+import 'package:praxis_flutter/utils/ui_utils.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -30,18 +32,9 @@ class _HomePageLayout extends StatelessWidget {
             BlocConsumer<JokesCubit, JokesState>(
               listener: (context, state) {
                 if (state is JokesLoaded) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => JokesPage(state.jokes),
-                    ),
-                  );
+                  locator<Nav>().goTo(jokesRoute, argument: state.jokes);
                 } else if (state is JokesError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(state.message),
-                    ),
-                  );
+                  showMessage(context, state.message);
                 }
               },
               builder: (context, state) {
