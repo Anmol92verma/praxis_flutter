@@ -1,45 +1,26 @@
+import 'package:domain_layer/entities/joke.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_flutter/app/pages/jokes/jokes_controller.dart';
-import 'package:praxis_flutter/domain/entities/joke.dart';
-import 'package:praxis_flutter/locator.dart';
+import 'package:get/get.dart';
 
-class JokesPage extends View {
-  final List<Joke> jokes;
-  final controller = locator<JokesController>();
-
-  JokesPage(this.jokes) {
-    controller.jokes = jokes;
-  }
-
+class JokesPage extends StatelessWidget {
   @override
-  State<StatefulWidget> createState() => _JokesPageView(controller);
-}
-
-class _JokesPageView extends ViewState<JokesPage, JokesController> {
-  _JokesPageView(JokesController controller) : super(controller);
-
-  @override
-  Widget get view {
+  Widget build(BuildContext context) {
+    final List<Joke> jokes =
+        Get.arguments ?? [Joke(0, "Something is missing here.")];
     return Scaffold(
-      key: globalKey,
       appBar: AppBar(
         title: Text("Praxis"),
       ),
       body: Container(
-        child: ControlledWidgetBuilder<JokesController>(
-          builder: (context, controller) {
-            return ListView.builder(
-              itemCount: controller.jokes.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Text(
-                    controller.jokes[index].jokeText,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                );
-              },
+        child: ListView.builder(
+          itemCount: jokes.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                jokes[index].jokeText,
+                style: TextStyle(fontSize: 16),
+              ),
             );
           },
         ),

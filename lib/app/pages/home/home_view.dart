@@ -1,23 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:get/get.dart';
 import 'package:praxis_flutter/app/components/praxis_button.dart';
 import 'package:praxis_flutter/app/pages/home/home_controller.dart';
-import 'package:praxis_flutter/locator.dart';
 
-class HomePage extends View {
-  final controller = locator<HomeController>();
-
+class HomePage extends GetView<HomeController> {
   @override
-  State<StatefulWidget> createState() => _HomePageView(controller);
-}
-
-class _HomePageView extends ViewState<HomePage, HomeController> {
-  _HomePageView(HomeController controller) : super(controller);
-
-  @override
-  Widget get view {
+  Widget build(BuildContext context) {
     return Scaffold(
-      key: globalKey,
       appBar: AppBar(
         title: Text("Praxis"),
       ),
@@ -26,27 +15,20 @@ class _HomePageView extends ViewState<HomePage, HomeController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ControlledWidgetBuilder<HomeController>(
-              builder: (context, controller) {
-                return Visibility(
+            Obx(() => Visibility(
                   child: LinearProgressIndicator(),
-                  visible: controller.isLoading,
-                );
-              },
-            ),
+                  visible: controller.isLoading.value,
+                )),
             SizedBox(height: 30),
             Text(
               "Chuck Norris Random Joke Generator",
               style: TextStyle(fontSize: 20.0),
             ),
             SizedBox(height: 50),
-            ControlledWidgetBuilder<HomeController>(
-                builder: (context, controller) {
-              return PraxisButton(
-                text: "Show 5 Random Jokes",
-                onPressed: controller.getJokes,
-              );
-            })
+            PraxisButton(
+              text: "Show 5 Random Jokes",
+              onPressed: () => controller.getJokes(),
+            )
           ],
         ),
       ),

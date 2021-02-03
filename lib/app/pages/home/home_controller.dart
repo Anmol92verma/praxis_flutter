@@ -1,44 +1,31 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:praxis_flutter/app/pages/home/home_presenter.dart';
-import 'package:praxis_flutter/app/pages/jokes/jokes_view.dart';
+import 'package:domain_layer/usecases/get_five_random_jokes_use_case.dart';
+import 'package:get/get.dart';
 
-class HomeController extends Controller {
-  bool isLoading = false;
+import '../../../routing/app_pages.dart';
 
-  final HomePresenter _presenter;
+/// Adding '.obs' to any variable makes to observable. We can observer them in
+/// widget-tree using [Obx].
+///
+/// Ref: https://github.com/jonataslaw/getx/blob/master/documentation/en_US/state_management.md
+class HomeController extends GetxController {
+  final GetFiveRandomJokesUseCase _fiveRandomJokesUseCase;
 
-  HomeController(this._presenter);
+  HomeController(this._fiveRandomJokesUseCase);
 
-  @override
-  void initListeners() {
-    _presenter.getJokesOnNext = (jokes) {
-      isLoading = false;
-      refreshUI();
-      Navigator.push(
-        getContext(),
-        MaterialPageRoute(
-          builder: (context) => JokesPage(jokes),
-        ),
-      );
-    };
+  var isLoading = false.obs;
 
-    _presenter.getJokesOnError = _onError;
-  }
-
-  void getJokes() async {
-    isLoading = true;
-    refreshUI();
-    _presenter.getJokes();
-  }
-
-  _onError(err) {
-    isLoading = true;
-    refreshUI();
-    ScaffoldMessenger.of(getContext()).showSnackBar(
-      SnackBar(
-        content: Text(err.toString()),
-      ),
+  Future<void> getJokes() async {
+    isLoading.value = true;
+    final result = await _fiveRandomJokesUseCase(null);
+    result.fold(
+      (value) {
+        isLoading.value = false;
+        Get.toNamed(Routes.JOKES, arguments: value);
+      },
+      (exception) {
+        isLoading.value = false;
+        Get.snackbar("Error", exception.toString());
+      },
     );
   }
 }
