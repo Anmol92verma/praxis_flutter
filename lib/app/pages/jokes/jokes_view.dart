@@ -1,5 +1,5 @@
+import 'package:domain_layer/entities/joke.dart';
 import 'package:flutter/material.dart';
-import 'package:praxis_flutter/domain/entities/joke.dart';
 
 class JokesPage extends StatelessWidget {
   final List<Joke> jokes;

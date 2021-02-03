@@ -1,11 +1,11 @@
+import 'package:data_layer/exceptions/api_exception.dart';
+import 'package:data_layer/models/joke_response.dart';
+import 'package:data_layer/sources/joke_remote_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
-import 'package:praxis_flutter/data/exceptions/api_exception.dart';
-import 'package:praxis_flutter/data/models/joke_response.dart';
-import 'package:praxis_flutter/data/sources/joke_remote_source.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../fixtures/fixture_reader.dart';
 
 class MockHttpClient extends Mock implements Client {}
 

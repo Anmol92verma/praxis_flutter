@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:praxis_flutter/data/constants.dart';
-import 'package:praxis_flutter/data/exceptions/api_exception.dart';
-import 'package:praxis_flutter/data/models/joke_response.dart';
+import 'package:data_layer/exceptions/api_exception.dart';
 import 'package:http/http.dart';
+
+import '../constants.dart';
+import '../models/joke_response.dart';
 
 abstract class JokeRemoteSource {
   Future<List<JokeResponse>> getFiveRandomJokes();

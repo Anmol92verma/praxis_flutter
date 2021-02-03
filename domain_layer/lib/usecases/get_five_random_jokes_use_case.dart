@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:praxis_flutter/domain/entities/joke.dart';
-import 'package:praxis_flutter/domain/repositories/joke_repository.dart';
-import 'package:praxis_flutter/domain/usecases/base_use_case.dart';
-import 'package:praxis_flutter/domain/utils/safe_result.dart';
+import '../entities/joke.dart';
+import '../repositories/joke_repository.dart';
+import '../utils/safe_result.dart';
+import 'base_use_case.dart';
 
 class GetFiveRandomJokesUseCase extends UseCase<List<Joke>, void> {
   final JokeRepository _jokeRepository;

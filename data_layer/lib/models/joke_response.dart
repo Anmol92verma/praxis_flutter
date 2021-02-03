@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:praxis_flutter/domain/entities/joke.dart';
+
+import 'package:flutter/foundation.dart';
+import 'package:domain_layer/entities/joke.dart';
 
 class JokeListResponse {
   final String type;

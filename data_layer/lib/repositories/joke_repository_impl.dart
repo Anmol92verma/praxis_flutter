@@ -1,6 +1,7 @@
-import 'package:praxis_flutter/data/sources/joke_remote_source.dart';
-import 'package:praxis_flutter/domain/entities/joke.dart';
-import 'package:praxis_flutter/domain/repositories/joke_repository.dart';
+import 'package:domain_layer/entities/joke.dart';
+import 'package:domain_layer/repositories/joke_repository.dart';
+
+import '../sources/joke_remote_source.dart';
 
 class JokeRepositoryImpl extends JokeRepository {
   final JokeRemoteSource _jokeRemoteSource;

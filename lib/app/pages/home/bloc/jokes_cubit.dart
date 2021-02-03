@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:domain_layer/entities/joke.dart';
+import 'package:domain_layer/usecases/get_five_random_jokes_use_case.dart';
 import 'package:equatable/equatable.dart';
-import 'package:praxis_flutter/domain/entities/joke.dart';
-import 'package:praxis_flutter/domain/usecases/get_five_random_jokes_use_case.dart';
 
 part 'jokes_state.dart';
 

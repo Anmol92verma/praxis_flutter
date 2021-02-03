@@ -1,7 +1,7 @@
-import 'package:praxis_flutter/data/models/joke_response.dart';
+import 'package:data_layer/models/joke_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../fixtures/fixture_reader.dart';
+import '../fixtures/fixture_reader.dart';
 
 void main() {
   group("jokeResponse mapper test", () {
